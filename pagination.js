@@ -1,18 +1,18 @@
-(function($){
-    let item_year = $('#item_year');
-    let limit = 15;
-    let numOfPages = 0;
-    let pagesNav = $('.page-list-nav');
-    let items = $('.page-list ul li');
-    let breakpoint = 8;
+$(document).ready(function($){
+    var item_year = $('#item_year');
+    var limit = 15;
+    var numOfPages = 0;
+    var pagesNav = $('.page-list-nav');
+    var items = $('.page-list ul li');
+    var breakpoint = 8;
     function pagination_init(){
-        let pagination = $('.pagination');
-        let currentPage = 1;
-        let once = true;
+        var pagination = $('.pagination');
+        var currentPage = 1;
+        var once = true;
         pagination.empty();
         $('<li class="disabled" data-id="prev"><a aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>').appendTo(pagination);
-        for(let num=1;num<=numOfPages;num++){
-            let navbox = '<li data-id="'+num+'"><a>'+num+'</a></li>';
+        for(var num=1;num<=numOfPages;num++){
+            var navbox = '<li data-id="'+num+'"><a>'+num+'</a></li>';
             if(numOfPages>breakpoint && num>5 && num<numOfPages){
                 if(once===true){
                     pagination.append('<li data-id="rightdots"><a class="dots">...</a></li>');
@@ -29,9 +29,9 @@
         $('<li data-id="next"><a aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>').appendTo(pagination);
     }
     function showlist(current_pageNum) {
-        let startrow = (current_pageNum-1) * limit;
-        let lastrow = startrow + limit;
-        let rows = items;
+        var startrow = (current_pageNum-1) * limit;
+        var lastrow = startrow + limit;
+        var rows = items;
         rows.hide();
         rows.slice(startrow,lastrow).show();
     }
@@ -41,11 +41,11 @@
     }
     function pagination_click(){
         $(document).on("click",".pagination li",function(){
-            let prev = $('.pagination li[data-id=prev]');
-            let next = $('.pagination li[data-id=next]');
-            let activebox = $('.pagination li[class=active]');
-            let target_pageNum = $(this).data('id');
-            let current_pageNum = activebox.data('id');
+            var prev = $('.pagination li[data-id=prev]');
+            var next = $('.pagination li[data-id=next]');
+            var activebox = $('.pagination li[class=active]');
+            var target_pageNum = $(this).data('id');
+            var current_pageNum = activebox.data('id');
             if(target_pageNum==='next'){
                 if(current_pageNum < numOfPages){
                     target_pageNum = current_pageNum + 1;
@@ -59,7 +59,7 @@
                     target_pageNum = current_pageNum
                 }
             }
-            let targetbox = $('.pagination li[data-id='+target_pageNum+']');
+            var targetbox = $('.pagination li[data-id='+target_pageNum+']');
             if($.isNumeric(target_pageNum)){
                 targetPage(activebox,targetbox);
             }
@@ -74,11 +74,11 @@
                 next.removeClass('disabled');
             }
             if(numOfPages>breakpoint){
-                let num = null;
-                let leftdotbox = $('.pagination li[data-id=leftdots]');
-                let rightdotbox = $('.pagination li[data-id=rightdots]');
-                let firstbox = $('.pagination li[data-id=1]');
-                let lastbox = $('.pagination li[data-id='+numOfPages+']');
+                var num = null;
+                var leftdotbox = $('.pagination li[data-id=leftdots]');
+                var rightdotbox = $('.pagination li[data-id=rightdots]');
+                var firstbox = $('.pagination li[data-id=1]');
+                var lastbox = $('.pagination li[data-id='+numOfPages+']');
                 if(targetbox.next().data('id')==='rightdots'){
                     if(target_pageNum===numOfPages-2){
                         num=target_pageNum+1;
@@ -96,7 +96,7 @@
                             $('.pagination li[data-id='+num+']').remove();
                         }
                     }
-                    let lastboxNum = numOfPages - 5 + 2;
+                    var lastboxNum = numOfPages - 5 + 2;
                     if(lastboxNum<=target_pageNum){
                         num = lastboxNum - 2;
                         $('.pagination li[data-id='+num+']').remove();
@@ -120,7 +120,7 @@
                             $('.pagination li[data-id=' + num + ']').remove();
                         }
                     }
-                    let firstboxNum = 4;
+                    var firstboxNum = 4;
                     if(firstboxNum>=target_pageNum){
                         num = firstboxNum + 2;
                         $('.pagination li[data-id='+num+']').remove();
@@ -192,4 +192,4 @@
         load_content($(this).val(),$('.page-list ul'));
     });
     pagination_click();
-})(jQuery);
+});
